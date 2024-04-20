@@ -1,0 +1,27 @@
+{
+  "type": "module",
+  "name": "guitar-center",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "local-storage": "^2.0.0",
+    "mongodb": "^6.5.0",
+    "mysql": "^2.18.1",
+    "node-localstorage": "^3.0.5",
+    "nodemon": "^3.1.0",
+    "npm": "^10.5.1",
+    "start": "^5.1.0",
+    "uuid": "^9.0.1"
+  }
+}
