@@ -58,6 +58,7 @@ app.get("/single-product", (req, res) => {
 });
 
 app.get("/index", (req, res) => {
+  
   res.redirect("/");
 });
 

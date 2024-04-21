@@ -6,6 +6,8 @@
                 <div class="col-md-8">
 
                     <script type="module" src="/handler/logout.js"></script>
+                    <script type="module" src="/handler/header.js"></script>
+                    
                     <div class="user-menu">
                         <ul>
                             <% if (typeof user !== 'undefined' && user) { %>
@@ -33,9 +35,9 @@
                 </div>
 
                 <div class="col-sm-6">
-                    <div class="shopping-item">
-                        <a href="cart">Cart - <span class="cart-amunt">$100</span> <i
-                                class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
+                    <div class="shopping-item" id="product-count">
+                        <a href="cart">Giỏ hàng <i
+                                class="fa fa-shopping-cart"></i> <span  class="product-count">5</span></a>
                     </div>
                 </div>
             </div>

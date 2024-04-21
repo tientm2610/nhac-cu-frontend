@@ -1,4 +1,3 @@
-// renderCart.js
 
 // Phương thức để lấy danh sách sản phẩm từ localStorage
 const getAllFromCart = () => {
@@ -18,11 +17,12 @@ const renderCart = () => {
   const productListHTML = cartData
     .map(
       (item) => `
-    <tr id="cart_item">
+    <tr id="cart_item" data-productId="${item.productId}">
 
-            <td class="product-remove">
-                <a title="Remove this item" class="remove" href="#">×</a>
-            </td>
+            
+    <td class="product-remove">
+    <a title="Remove this item" class="remove-item" href="#">×</a>
+</td>
             <td class="product-image">
                 <a href="single-product/${
                   item.productId
@@ -39,7 +39,7 @@ const renderCart = () => {
                 <span class="amount">${item.price}$</span>
             </td>
             <td id="product-quantity" class="product-quantity">
-                <div class="quantity buttons_added">
+                <div class="quantity buttons_added" id ="button-cart-container">
                     <input type="button" class="minus" value="-">
                     <input type="number" size="4" class="input-text qty text" title="Qty" value="${
                       item.unit
@@ -58,137 +58,135 @@ const renderCart = () => {
 
   // Gán nội dung HTML vào phần tử trên trang
   document.getElementById("cart-items").innerHTML = productListHTML;
+
+  // Thêm lắng nghe sự kiện click cho tất cả các nút "remove-item"
+  const removeButtons = document.querySelectorAll('.remove-item');
+  removeButtons.forEach(button => {
+    button.addEventListener('click', handleRemoveItemClick);
+  });
 };
 
  // Gọi hàm renderCart khi trang đã tải hoàn tất
  document.addEventListener("DOMContentLoaded", renderCart);
 
-// Thêm sự kiện cho nút "+" và "-"
-document.addEventListener("click", function (event) {
-  const target = event.target;
+ 
+// Xử lý sự kiện khi click vào nút "remove-item"
+function handleRemoveItemClick(event) {
+  event.preventDefault();
+  const parentTr = event.target.closest('tr');
+  const productId = parentTr.getAttribute('data-productId');
+  let cartItems = JSON.parse(localStorage.getItem('item')) || [];
+  cartItems = cartItems.filter(item => item.productId !== productId);
+  localStorage.setItem('item', JSON.stringify(cartItems));
+  
+  //cập nhật lại số lượng sản phẩm trên icon giỏ hàng
+  renderProductCount();
+  //cập nhật lại giỏ hàng
+  renderCart();
+  //cập nhật lại tổng thành tiền
+  renderTotalPrice();
+}
 
-  // Kiểm tra xem có phải là nút "+" hay không
-  if (target.classList.contains("plus")) {
-    // Lấy phần tử cha trực tiếp (tr) của nút được nhấn
-    const parentTr = target.closest("tr");
+document.addEventListener('DOMContentLoaded', function() {
+  const plusButtons = document.querySelectorAll('.plus');
+  const minusButtons = document.querySelectorAll('.minus');
 
-    // Lấy số lượng hiện tại từ ô input
-    const quantityInput = parentTr.querySelector(".qty");
-    let unit = parseInt(quantityInput.value);
+  plusButtons.forEach(button => {
+    button.addEventListener('click', function(event) {
+      event.stopPropagation();
+      const parentTr = event.target.closest('tr');
+      updateQuantity(parentTr, 1);
+    });
+  });
 
-    // Tăng số lượng và cập nhật giá trị vào ô input
-    unit++;
-    quantityInput.value = unit;
-
-    // Cập nhật tổng thành tiền
-    updateTotal(parentTr, unit);
-  }
-
-  // Kiểm tra xem có phải là nút "-" hay không
-  if (target.classList.contains("minus")) {
-    // Lấy phần tử cha trực tiếp (tr) của nút được nhấn
-    const parentTr = target.closest("tr");
-
-    // Lấy số lượng hiện tại từ ô input
-    const quantityInput = parentTr.querySelector(".qty");
-    let unit = parseInt(quantityInput.value);
-
-    // Đảm bảo số lượng không nhỏ hơn 1
-    if (unit > 1) {
-      // Giảm số lượng và cập nhật giá trị vào ô input
-      unit--;
-      quantityInput.value = unit;
-
-      // Cập nhật tổng thành tiền
-      updateTotal(parentTr, unit);
-    }
-  }
+  minusButtons.forEach(button => {
+    button.addEventListener('click', function(event) {
+      event.stopPropagation();
+      const parentTr = event.target.closest('tr');
+      updateQuantity(parentTr, -1);
+    });
+  });
 });
 
-// Hàm cập nhật tổng thành tiền
+function updateQuantity(parentTr, increment) {
+  const quantityInput = parentTr.querySelector('.qty');
+  let unit = parseInt(quantityInput.value);
+  unit += increment;
+  if (unit < 1) {
+    unit = 1; // Đảm bảo số lượng không nhỏ hơn 1
+  }
+  quantityInput.value = unit;
+  updateLocalStorage(parentTr, unit);
+  updateTotal(parentTr, unit);
+  renderTotalPrice();
+}
+
+// Hàm cập nhật tổng thành tiền và thành tiền cho từng sản phẩm
 function updateTotal(parentTr, unit) {
-  // Lấy giá tiền từ ô span
   const priceSpan = parentTr.querySelector(".product-price .amount");
   const price = parseFloat(priceSpan.textContent);
-
-  // Cập nhật tổng thành tiền vào ô span
   const subtotalSpan = parentTr.querySelector(".product-subtotal .amount");
   subtotalSpan.textContent = unit * price + `$`;
+
+  // Cập nhật tổng thành tiền của đơn hàng
+  renderTotalPrice();
 }
 
-document
-.getElementById("order-button")
-.addEventListener("click", function (event) {
-  event.preventDefault(); // Ngăn chặn hành động mặc định của nút
-  // Thực hiện các hành động cần thiết khi nhấn nút thanh toán
-  // Ví dụ: Gọi hàm để gửi dữ liệu đến backend
-  sendOrderDataToBackend();
-  
-   // Load lại trang /cart
-});
-
-
-
-function sendOrderDataToBackend() {
-  
-     // Lấy dữ liệu từ localStorage
-     const orderData = JSON.parse(localStorage.getItem('item'));
-     const phone = document.getElementById('order-phone').value;
-     const address = document.getElementById('order-address').value;
-
-      // Kiểm tra xem giỏ hàng có trống không
-      if (!orderData || orderData.length === 0) {
-        alert('Giỏ hàng đang trống, vui lòng thêm sản phẩm vào giỏ hàng trước khi đặt hàng.');
-        return;
-    }
-
-    // Kiểm tra xem số điện thoại và địa chỉ đã được nhập hay chưa
-    if (!phone || !address) {
-        alert('Vui lòng nhập số điện thoại và địa chỉ nhận hàng.');
-        return;
-    }
-     
-     fetch('http://localhost:3333/api/orders/add', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        credentials: 'include' ,
-        body: JSON.stringify({
-            order: {
-                address: address,
-                phone: phone
-            },
-            orderDetails: orderData
-        }),
-        redirect: 'manual' // Ngăn chặn chuyển hướng tự động
-    })
-    .then(response => {
-        if (response.status === 200) {
-            alert(`Đặt hàng thành công!`)
-            // Phản hồi thành công, chuyển hướng trang
-            
-            //xóa giỏ hàng
-            localStorage.removeItem("item");
-
-            window.location.href = '/cart'; // Chuyển hướng tới trang mới
-            
-        } else if (response.status === 400) {
-            // Phản hồi có lỗi, trích xuất thông báo lỗi từ dữ liệu JSON
-            response.json().then(data => {
-                alert(data.error); // Hiển thị thông báo lỗi từ server
-            });
-        } else {
-            // Phản hồi không thành công, hiển thị thông báo lỗi mặc định
-            alert('Có lỗi xảy ra khi xử lý đơn hàng');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        // Xử lý lỗi nếu cần
-        alert('Có lỗi xảy ra khi xử lý đơn hàng');
-    });
+// Hàm cập nhật số lượng vào LocalStorage
+function updateLocalStorage(parentTr, unit) {
+  const productId = parentTr.getAttribute('data-productId');
+  let cartItems = JSON.parse(localStorage.getItem('item')) || [];
+  const existingItemIndex = cartItems.findIndex(item => item.productId === productId);
+  if (existingItemIndex !== -1) {
+    cartItems[existingItemIndex].unit = unit;
+    localStorage.setItem('item', JSON.stringify(cartItems));
+  }
 }
 
 
-  
+// Hàm render tổng giá trị của giỏ hàng
+const renderTotalPrice = () => {
+  // Lấy danh sách sản phẩm từ localStorage
+  const cartData = getAllFromCart();
+
+  // Tạo biến để lưu tổng giá trị
+  let totalPrice = 0;
+
+  // Lặp qua mỗi sản phẩm trong giỏ hàng và tính tổng giá trị
+  cartData.forEach((item) => {
+      totalPrice += item.price * item.unit;
+  });
+
+  // Tạo nội dung HTML cho tổng thành tiền
+  const totalPriceHTML = `
+      <td class="order-total-price" colspan="6">
+          <strong><span class="amount">Tổng thành tiền: ${totalPrice}$</span></strong>
+      </td>
+  `;
+
+  // Gán nội dung HTML vào phần tử trên trang
+  document.getElementById("cart-total-price").innerHTML = totalPriceHTML;
+};
+document.addEventListener("DOMContentLoaded", renderTotalPrice);
+
+const renderProductCount = () => {
+  // Lấy danh sách sản phẩm từ localStorage
+  const cartData = getAllFromCart();
+
+  // Đếm số lượng sản phẩm trong giỏ hàng
+
+  const productCount = cartData.length;
+  // Tạo nội dung HTML cho tổng thành tiền
+  const productCountHTML = `
+  <a href="cart">Giỏ hàng</span> <i
+  class="fa fa-shopping-cart"></i> <span  class="product-count">${productCount}</span></a>
+  `;
+
+  // Gán nội dung HTML vào phần tử trên trang
+  document.getElementById("product-count").innerHTML = productCountHTML;
+};
+// Gọi hàm  để hiển thị tổng giá trị của giỏ hàng khi trang đã tải hoàn tất
+document.addEventListener("DOMContentLoaded", renderProductCount);
+
+
+ 
