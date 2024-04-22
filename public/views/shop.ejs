@@ -64,14 +64,14 @@
                         <div class="product-upper">
                             <img src="http://localhost:3333/api/products/<%= product.productId %>/image" alt="">
                         </div>
-                        <h2><a href="single-product"><%= product.productName %></a></h2>
+                        <h2><a href="single-product/<%= product.productId %>"><%= product.productName %></a></h2>
                         <div class="product-carousel-price">
-                            <ins><%= product.price %></ins> 
+                            <ins><%= product.price %>$</ins> 
                         </div>  
                         
-                        <div class="product-option-shop">
-                            <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
-                        </div>                       
+                             
+                        <button class="add_to_cart_button" data-productId="<%= product.productId %>" id="add_to_cart_button" type="submit">Thêm vào
+                          giỏ hàng</button>              
                     </div>
                     <% }); %>
                 </div>
