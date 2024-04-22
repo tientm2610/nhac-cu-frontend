@@ -10,14 +10,18 @@
                     
                     <div class="user-menu">
                         <ul>
-                            <% if (typeof user !== 'undefined' && user) { %>
+                          
                                 <!-- Nếu người dùng đã đăng nhập -->
-                                <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
-                                <li><a href="#" id="btn_logout"><i class="fa fa-user"></i> Logout</a></li>
-                            <% } else { %>
+                                <li><a href="profile"><i class="fa fa-user"></i> Thông tin người dùng</a></li>
+                     
                                 <!-- Nếu người dùng chưa đăng nhập -->
-                                <li><a href="login"><i class="fa fa-user"></i> Login</a></li>
-                            <% } %>
+                                <li><a href="order"><i class="fa fa-user"></i> Đơn hàng </a></li>
+                                 <!-- Nếu người dùng đã đăng nhập -->
+                                 <li><a href="#" id ="btn_logout"><i class="fa fa-user"></i> Đăng xuất</a></li>
+                     
+                                 <!-- Nếu người dùng chưa đăng nhập -->
+                                 <li><a href="login"><i class="fa fa-user"></i>Đăng nhập</a></li>
+                       
                         </ul>
                     </div>
                     
@@ -36,8 +40,7 @@
 
                 <div class="col-sm-6">
                     <div class="shopping-item" id="product-count">
-                        <a href="cart">Giỏ hàng <i
-                                class="fa fa-shopping-cart"></i> <span  class="product-count">5</span></a>
+                      
                     </div>
                 </div>
             </div>

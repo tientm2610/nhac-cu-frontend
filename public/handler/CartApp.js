@@ -25,7 +25,7 @@ export class CartApp{
        
         await ProductCart.addToCart(productId,productName,productPrice,unit)
             .then(message => {
-                
+                window.location.reload();
                 alert(message);
             })
             .catch(error => console.error(error))

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Guitar Center</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet'
+        type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="css/profile.css">
+
+
+    <!-- Header -->
+    <%- include('header') %>
+        <!-- <script src="handler/header.js"></script> -->
+
+
+</head>
+
+<body>
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-bit-title text-center">
+                        <h2 style="font-weight: bold;">Thông tin người dùng</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End Page title area -->
+
+
+    <!-- main content -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                const response = await fetch('http://localhost:3333/api/users/me', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                redirect: 'manual' // Ngăn chặn chuyển hướng tự động
+            });;
+                const userData = await response.json();
+                console.log(userData);
+                // Hiển thị thông tin người dùng trong các thẻ HTML
+                document.getElementById('username').value = userData.username;
+                document.getElementById('password').value = userData.password;
+                document.getElementById('fullname').value = userData.fullname;
+                document.getElementById('phone').value = userData.phone;
+                document.getElementById('address').value = userData.address;
+                document.getElementById('birth').value = userData.birth;
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        });
+    </script>
+<div class="form-container" style=" background-color: #c1d0eb;  margin-top: 60px;">
+    <p class="input-field input-field-first validate-required">
+        <label for="username">Tài Khoản <abbr title="required">*</abbr></label>
+        <input type="text" id="username" name="username" value="" placeholder="Tài khoản của bạn">
+    </p>
+    <p class="input-field input-field-wide">
+        <label for="password">Mật Khẩu</label>
+        <input type="password" id="password" name="password" value="" placeholder="Mật khẩu của bạn">
+    </p>
+    <p class="input-field input-field-last validate-required">
+        <label for="fullname">Họ Tên <abbr title="required">*</abbr></label>
+        <input type="text" id="fullname" name="fullname" value="" placeholder="Họ tên của bạn">
+    </p>
+    <div class="clear"></div>
+    <p class="input-field input-field-wide address-field validate-required">
+        <label for="phone">Số điện thoại <abbr title="required">*</abbr></label>
+        <input type="tel" id="phone" name="phone" value="" placeholder="Số điện thoại của bạn">
+    </p>
+    <p class="input-field input-field-first address-field">
+        <label for="address">Địa chỉ</label>
+        <input type="text" id="address" name="address" value="" placeholder="Địa chỉ của bạn">
+    </p>
+    <p class="input-field input-field-last address-field validate-required">
+        <label for="birth">Ngày sinh <abbr title="required">*</abbr></label>
+        <input type="date" id="birth" name="birth" value="" placeholder="Ngày sinh của bạn">
+    </p>
+    <input type="submit" value="Cập nhật">
+</div>
+
+    <!-- Footer -->
+    <%- include('footer') %>
+
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+
+
+        <script src="js/jquery.easing.1.3.min.js"></script>
+
+        <script src="js/main.js"></script>
+        <script src="handler/renderCart.js"></script>
+
+        <script type="text/javascript" src="js/bxslider.min.js"></script>
+        <script type="text/javascript" src="js/script.slider.js"></script>
+
+</body>
+
+</html>

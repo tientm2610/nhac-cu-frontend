@@ -1,7 +1,7 @@
 import express from "express";
 import session from "express-session";
 import { Product } from "./public/handler/Product.js";
-
+import Order from "./public/handler/Order.js";
 // const dotenv = require('dotenv');
 // dotenv.config();
 const app = express();
@@ -79,11 +79,18 @@ app.get("/single-product", (req, res) => {
 });
 app.get("/cart", async (req, res) => {
 
-
-
   res.render("cart");
 });
 
+app.get("/order", async (req, res) => {
+  const orders = await Order.getOrderList();
+  res.render("order", {orders});
+});
+
+app.get("/profile", async (req, res) => {
+
+  res.render("profile");
+});
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () =>
   console.log(`Server front-end đã khởi động trên cổng ${PORT}`)

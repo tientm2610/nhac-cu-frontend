@@ -15,7 +15,7 @@ export class logout{
             await fetch('http://localhost:3333/api/users/logout', {method: `GET`, credentials: 'include'})
             .then(message => {
                 alert('Đăng xuất thành công')
-                window.location.href = "http://localhost:3333/";
+                window.location.href = "http://localhost:3000/";
             })
             .catch(error => console.error(error))
         }

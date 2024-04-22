@@ -1,4 +1,3 @@
-import { apiRequest } from "./apiRequest.js";
 
 export class OrderDetail {
   constructor(data) {
@@ -8,7 +7,7 @@ export class OrderDetail {
     this.productId = data.productId;
   }
 }
-export class Order {
+export default class Order {
   constructor(data) {
     this.orderId = data.orderId;
     this.address = data.address;
@@ -19,15 +18,21 @@ export class Order {
     this.username = data.username;
   }
 
-  getOrderList = async () => {
+  static getOrderList = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3333/api/orders/my-orders`
-      );
+      const response = await  fetch('http://localhost:3333/api/orders/but2610/my-orders', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        redirect: 'manual' // Ngăn chặn chuyển hướng tự động
+    });
+
       const orders = await response.json();
       return orders.map((order) => new Order(order));
     } catch (error) {
-      alert("Error fetching orders:", error);
+      console.log("Error fetching orders:", error);
       return [];
     }
   };
