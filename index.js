@@ -2,12 +2,16 @@ import express from "express";
 import session from "express-session";
 import { Product } from "./public/handler/Product.js";
 import Order from "./public/handler/Order.js";
+import cors from "cors"; // Import middleware cors
+
 // const dotenv = require('dotenv');
 // dotenv.config();
 const app = express();
 
 // Định nghĩa route để phục vụ trang HTML
 app.use(express.static("public"));
+
+app.use(cors());
 
 app.use(
   session({
@@ -63,6 +67,7 @@ app.get("/index", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
+
   res.render("login");
 });
 
