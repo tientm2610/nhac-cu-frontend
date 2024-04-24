@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok) {
                 alert('Thông tin đã được cập nhật thành công.');
             } else {
-               alert(`Cập nhật thông tin thành công. Mã lỗi: ${response.status}` );
+               alert(`Cập nhật thông tin thất bại. Mã lỗi: ${response.json()}` );
             }
         } catch (error) {
             alert(`Lỗi khi gửi yêu cầu cập nhật thông tin người dùng: ${error}`);

@@ -21,7 +21,7 @@ export class logout{
                 //remove local storage
                 localStorage.removeItem('item');
 
-                window.location.href = "http://localhost:3000/";
+                window.location.href = "/index";
                 // alert('Đăng xuất thành công')
             })
             .catch(error => console.error(error))

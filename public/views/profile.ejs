@@ -56,7 +56,7 @@
                 redirect: 'manual' // Ngăn chặn chuyển hướng tự động
             });;
                 const userData = await response.json();
-                console.log(userData);
+                console.log(userData.birth);
                 // Hiển thị thông tin người dùng trong các thẻ HTML
                 document.getElementById('username').value = userData.username;
                 document.getElementById('password').value = userData.password;
@@ -64,6 +64,7 @@
                 document.getElementById('phone').value = userData.phone;
                 document.getElementById('address').value = userData.address;
                 document.getElementById('birth').value = userData.birth;
+               
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
