@@ -58,7 +58,7 @@ const renderOrder = async () => {
         <td class="order-status" style="color: ${getStatusColor(item.status)};"> 
             <span>${item.status}</span>
         </td>
-        <td class="order-total" style="color: ${getTotalPriceColor(item.totalPrice)};">
+        <td class="order-total" style="color: ${getTotalPriceColor(item.totalPrice)};font-size: large;">
             <span>${item.totalPrice}$</span>
         </td>
         <div>

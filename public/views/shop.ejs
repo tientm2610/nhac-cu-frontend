@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Shop Page- Ustora Demo</title>
+    <title>Guitar Center - Shop Page</title>
     
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
@@ -69,9 +69,10 @@
                             <ins><%= product.price %>$</ins> 
                         </div>  
                         
-                             
-                        <button class="add_to_cart_button" data-productId="<%= product.productId %>" id="add_to_cart_button" type="submit">Thêm vào
-                          giỏ hàng</button>              
+                             <form method="get" action="single-product/<%= product.productId %>">
+                        <button class="add_to_cart_button"  data-productId="<%= product.productId %>" id="add_to_cart_button" type="submit">Thêm vào
+                          giỏ hàng</button>    
+                        </form>          
                     </div>
                     <% }); %>
                 </div>

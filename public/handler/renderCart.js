@@ -71,7 +71,7 @@ const renderCart = () => {
 
  
 // Xử lý sự kiện khi click vào nút "remove-item"
-function handleRemoveItemClick(event) {
+ function handleRemoveItemClick(event) {
   event.preventDefault();
   const parentTr = event.target.closest('tr');
   const productId = parentTr.getAttribute('data-productId');
@@ -82,7 +82,8 @@ function handleRemoveItemClick(event) {
   //cập nhật lại số lượng sản phẩm trên icon giỏ hàng
   renderProductCount();
   //cập nhật lại giỏ hàng
-  renderCart();
+  // renderCart();
+  window.location.href = "/cart";
   //cập nhật lại tổng thành tiền
   renderTotalPrice();
 }

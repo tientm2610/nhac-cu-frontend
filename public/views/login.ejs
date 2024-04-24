@@ -3,55 +3,58 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Guitar Center - Login</title>
         <script type="module" src="./handler/index_user.js"></script>
         <link rel="stylesheet" href="./css/login.css">
         
     </head>
     <body>
+     
+        <a href="/" style="margin-bottom: 0px; margin-right: 740px;font-size: x-large;">X</a>
         <div class="container" id="container">
+            
             <div class="form-container sign-up-container">
                 <form id="register-form" >
-                    <h1>Create Account</h1> 
-                    <input id="username_register" type="text" placeholder="Username" />
-                    <input id="password_register" type="password" placeholder="Password" />
-                    <input id="fullname_register" type="text" placeholder="Fullname" />
-                    <input id="phone_register" type="text" placeholder="Phone" />
-                    <input id="address_register" type="text" placeholder="Address" />
+                    <h1>Tạo tài khoản</h1> 
+                    <input id="username_register" type="text" placeholder="Tài khoản" />
+                    <input id="password_register" type="password" placeholder="Mật khẩu" />
+                    <input id="fullname_register" type="text" placeholder="Họ tên" />
+                    <input id="phone_register" type="text" placeholder="Số điện thoại" />
+                    <input id="address_register" type="text" placeholder="Địa chỉ" />
                     <div class="gender"style="display: flex;">
                         <label>
-                            <input type="radio" name="gender" value="M" required /> Male
+                            <input type="radio" name="gender" value="M" required /> Nam
                         </label>
                         <label>
-                            <input type="radio" name="gender" value="F" required /> Female
+                            <input type="radio" name="gender" value="F" required /> Nữ
                         </label>
                     </div>
                     <input id="birth_register" type="date" placeholder="Birth (dd-mm-yyy)" />
-                    <button id="btn_signup">Sign Up</button>
+                    <button id="btn_signup">Đăng ký</button>
                 </form>
             </div>
             <div class="form-container sign-in-container">
                 <form id="login-form">
-                    <h1>Sign in</h1>
-                    <input id="username_login" type="text" placeholder="Username" />
-                    <input id="password_login" type="password" placeholder="Password" />
-                    <a href="#">Forgot your password?</a>
-                    <button id="btn_login">Sign In</button>
+                    <h1>Đăng nhập</h1>
+                    <input id="username_login" type="text" placeholder="Tài khoản" />
+                    <input id="password_login" type="password" placeholder="Mật khẩu" />
+                    <a href="#">Quên mật khẩu ?</a>
+                    <button id="btn_login">Đăng nhập</button>
                 </form>
             </div>
             <div class="overlay-container">
                 <div class="overlay">
                     <div class="overlay-panel overlay-left">
-                        <h1>Welcome Back!</h1>
-                        <p>To keep connected with us please login with your
-                            personal info</p>
-                        <button class="ghost" id="signIn">Sign In</button>
+                        <h1>Xin chào!</h1>
+                        <p>Bạn đã có tài khoản ?
+                            Hãy đăng nhập ngay</p>
+                        <button class="ghost" id="signIn">Đăng nhập</button>
                     </div>
                     <div class="overlay-panel overlay-right">
-                        <h1>Hello, Friend!</h1>
-                        <p>Enter your personal details and start journey with
-                            us</p>
-                        <button class="ghost" id="signUp">Sign Up</button>
+                        <h1>Xin chào!</h1>
+                        <p>Bạn chưa có tài khoản? 
+                            Hãy điền đầy đủ thông tin để đăng ký ngay</p>
+                        <button class="ghost" id="signUp">Đăng ký</button>
                     </div>
                 </div>
             </div>

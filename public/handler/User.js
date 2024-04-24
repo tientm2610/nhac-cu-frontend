@@ -28,7 +28,7 @@ export default class User{
                 return fullname;
             } else {
                 response.json().then(data => {
-                    alert(data.error); // Hiển thị thông báo lỗi từ server
+                    // alert(data.error); // Hiển thị thông báo lỗi từ server
                     throw new Error(data.error);
                 });
             
