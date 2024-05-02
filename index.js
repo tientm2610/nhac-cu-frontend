@@ -3,10 +3,29 @@ import session from "express-session";
 import { Product } from "./public/handler/Product.js";
 import Order from "./public/handler/Order.js";
 import cors from "cors"; // Import middleware cors
-
-// const dotenv = require('dotenv');
-// dotenv.config();
 const app = express();
+
+// export type CheckoutRequestType = {
+//   orderCode: number;
+//   amount: number;
+//   description: string;
+//   cancelUrl: string;
+//   returnUrl: string;
+//   signature?: string;
+//   items?: {
+//       name: string;
+//       quantity: number;
+//       price: number;
+//   }[];
+//   buyerName?: string;
+//   buyerEmail?: string;
+//   buyerPhone?: string;
+//   buyerAddress?: string;
+//   expiredAt?: number;
+// };
+
+
+
 
 // Định nghĩa route để phục vụ trang HTML
 app.use(express.static("public"));
@@ -19,7 +38,6 @@ app.use(
     resave: false, // Không lưu lại session nếu không có sự thay đổi
     saveUninitialized: false, // Không tạo session cho người dùng chưa đăng nhập
   })
-  
 );
 
 app.set("view engine", "ejs");
@@ -62,12 +80,19 @@ app.get("/single-product", (req, res) => {
 });
 
 app.get("/index", (req, res) => {
-  
   res.redirect("/");
 });
 
-app.get("/login", (req, res) => {
+app.get("/success", (req, res) => {
+  res.render("success");
+});
 
+app.get("/cancel", (req, res) => {
+  res.render("cancel");
+});
+
+
+app.get("/login", (req, res) => {
   res.render("login");
 });
 
@@ -83,22 +108,22 @@ app.get("/single-product", (req, res) => {
   res.render("single-product");
 });
 app.get("/cart", async (req, res) => {
-
   res.render("cart");
 });
 
 app.get("/order", async (req, res) => {
   const orders = await Order.getOrderList();
-  res.render("order", {orders});
+  res.render("order", { orders });
 });
 
 app.get("/profile", async (req, res) => {
-
   res.render("profile");
 });
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () =>
   console.log(`Server front-end đã khởi động trên cổng ${PORT}`)
 );
+
+
 
 export default app;

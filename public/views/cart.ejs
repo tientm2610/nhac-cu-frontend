@@ -117,13 +117,26 @@
                             <ul class="payment_methods methods">
                                 
                                 <li
+                                class="payment_method_cheque">
+                                <input type="radio" checked="true"
+                                    data-order_button_text
+                                    value="cheque"
+                                    name="payment_method"
+                                    class="input-radio"
+                                    id="payment_method_bank">
+                                <label
+                                    for="payment_method_cheque">Thanh
+                                    toán bằng ngân hàng
+                                </label>
+                            </li>
+                                <li
                                     class="payment_method_cheque">
                                     <input type="radio" checked="true"
                                         data-order_button_text
                                         value="cheque"
                                         name="payment_method"
                                         class="input-radio"
-                                        id="payment_method_cheque">
+                                        id="payment_method_cod">
                                     <label
                                         for="payment_method_cheque">Thanh
                                         toán khi nhận hàng
@@ -135,6 +148,10 @@
                 
                             <td class="checkout" colspan="6">
                             <a href="" id="order-button" class="button">Đặt hàng</a>
+                            <a href="" id="payment-button" class="button">Thanh toán</a>
+
+                            <!-- <form action="create-payment-link" method="post"><button id="payment-button" class="button">Thanh toán</button></form> -->
+
                               </td>
                 
                             </div>
@@ -166,6 +183,7 @@
                                     <script src="handler/renderCart.js"></script>
 
                                     <script src="handler/orderCart.js"></script>
+                                    <script src="handler/paymentCart.js"></script>
 
                                    
                                     <tbody id="cart-items">

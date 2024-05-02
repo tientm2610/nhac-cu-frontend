@@ -102,12 +102,14 @@ document.addEventListener("DOMContentLoaded", renderOrder);
 
 function getStatusColor(status) {
     switch (status) {
-        case 'Đang xử lý':
+        case 'Chưa thanh toán':
             return 'blue';
         case 'Giao hàng thành công':
-            return 'green';
+            return 'fuchsia';
         case 'Đã hủy':
             return 'red';
+        case 'Đã thanh toán':
+            return 'green';
         default:
             return 'black';
     }

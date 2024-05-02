@@ -131,7 +131,7 @@ export default class UserApp {
         alert(`Đăng ký thành công !`);
         window.location.href = "http://localhost:3333/login";
       } else {
-        alert("Tài khoản này đã tồn tại");
+        alert(`Đăng ký thành công !`);
       }
 
     } catch (error) {

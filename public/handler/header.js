@@ -1,6 +1,7 @@
 const renderProductCount = () => {
   // Lấy danh sách sản phẩm từ localStorage
-  const cartData = getAllFromCart();
+  const cartData = JSON.parse(localStorage.getItem("item")) || [];
+  ;
 
   // Đếm số lượng sản phẩm trong giỏ hàng
 

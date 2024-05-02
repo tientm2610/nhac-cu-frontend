@@ -1,19 +1,8 @@
 
-// Phương thức để lấy danh sách sản phẩm từ localStorage
-const getAllFromCart = () => {
-  try {
-    // Lấy danh sách sản phẩm từ localStorage
-    const cartItems = JSON.parse(localStorage.getItem("item")) || [];
-    return cartItems;
-  } catch (error) {
-    console.error("Error:", error);
-    throw error;
-  }
-};
 
 // Lấy danh sách sản phẩm từ localStorage và render trên trang
 const renderCart = () => {
-  const cartData = getAllFromCart();
+  const cartData = JSON.parse(localStorage.getItem("item")) || [];
   const productListHTML = cartData
     .map(
       (item) => `
@@ -148,7 +137,7 @@ function updateLocalStorage(parentTr, unit) {
 // Hàm render tổng giá trị của giỏ hàng
 const renderTotalPrice = () => {
   // Lấy danh sách sản phẩm từ localStorage
-  const cartData = getAllFromCart();
+  const cartData = JSON.parse(localStorage.getItem("item")) || [];
 
   // Tạo biến để lưu tổng giá trị
   let totalPrice = 0;
@@ -160,7 +149,7 @@ const renderTotalPrice = () => {
 
   // Tạo nội dung HTML cho tổng thành tiền
   const totalPriceHTML = `
-      <td class="order-total-price" colspan="6">
+      <td class="order-total-price" colspan="6"  id="cart-total-price">
           <strong><span class="amount">Tổng thành tiền: ${totalPrice}$</span></strong>
       </td>
   `;
@@ -172,7 +161,7 @@ document.addEventListener("DOMContentLoaded", renderTotalPrice);
 
 const renderProductCount = () => {
   // Lấy danh sách sản phẩm từ localStorage
-  const cartData = getAllFromCart();
+  const cartData = JSON.parse(localStorage.getItem("item")) || [];
 
   // Đếm số lượng sản phẩm trong giỏ hàng
 
@@ -190,4 +179,24 @@ const renderProductCount = () => {
 document.addEventListener("DOMContentLoaded", renderProductCount);
 
 
- 
+document.addEventListener("DOMContentLoaded", function() {
+  const orderButton = document.getElementById("order-button");
+  const paymentButton = document.getElementById("payment-button");
+  const bankMethod = document.getElementById("payment_method_bank");
+  const codMethod = document.getElementById("payment_method_cod");
+
+  // Ẩn nút "Thanh toán" khi trang được tải lần đầu
+  paymentButton.style.display = "none";
+
+  // Thêm sự kiện click cho nút "Thanh toán khi nhận hàng"
+  codMethod.addEventListener("click", function() {
+      orderButton.style.display = "inline"; // Hiển thị nút "Đặt hàng"
+      paymentButton.style.display = "none"; // Ẩn nút "Thanh toán"
+  });
+
+  // Thêm sự kiện click cho nút "Thanh toán bằng ngân hàng"
+  bankMethod.addEventListener("click", function() {
+      orderButton.style.display = "none"; // Ẩn nút "Đặt hàng"
+      paymentButton.style.display = "inline"; // Hiển thị nút "Thanh toán"
+  });
+});
